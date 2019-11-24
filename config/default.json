@@ -1,0 +1,4 @@
+{
+    "token":"mySecretToken",
+    "mongoURI" :"mongodb+srv://fabioyang:yyc7815566@mycluster-17b8u.mongodb.net/test?retryWrites=true&w=majority"
+}
