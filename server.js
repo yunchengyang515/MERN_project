@@ -7,7 +7,7 @@ app.use(express.json({extended: false})); // allow us to get the data from reque
 app.get('/', (req,res) => res.send('API running'))
 
 //make api/users/ will be = route/api/user 
-app.use('/api/users', require('./route/api/users'));
+app.use('/api/user', require('./route/api/user'));
 app.use('/api/profile', require('./route/api/profile'));
 app.use('/api/post', require('./route/api/post'));
 app.use('/api/auth', require('./route/api/auth'));
