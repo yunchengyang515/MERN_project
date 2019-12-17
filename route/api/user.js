@@ -39,7 +39,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "User already registred" }] });
+          .json({ errors: [{ msg: "User already register" }] });
         //just to make sure our format of error is consistent
       }
       //Get user avatar, by pass the email
@@ -84,7 +84,7 @@ router.post(
         } // a callback that we either get an error or token
       );
     } catch (err) {
-      console.error(err.messgae);
+      console.error(err.message);
       res.status(500).send("Something wrong with the server");
     }
   }

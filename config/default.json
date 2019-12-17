@@ -1,4 +1,6 @@
 {
     "token":"mySecretToken",
-    "mongoURI" :"mongodb+srv://fabioyang:yyc7815566@mycluster-17b8u.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoURI" :"mongodb+srv://fabioyang:yyc7815566@mycluster-17b8u.mongodb.net/test?retryWrites=true&w=majority",
+    "githubClientId":"c1e2a85769cd5bda9921",
+    "githubClientSecret":"b1d4e734062feeb04849e86a9bb0dbcbb4a2645d"
 }
