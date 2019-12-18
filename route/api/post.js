@@ -126,9 +126,9 @@ router.put('/unlike/:id', auth, async (req, res) => {
 		//Length > 0 means it is already been liked
 		if (post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
 			res.status(400).json({ msg: 'You have not liked the post ' });
-        }
-        //get remove index
-        const removeIndex = post.likes.map(like=>like.user.toString().indexOf(req.user.id))
+		}
+		//get remove index
+		const removeIndex = post.likes.map(like => like.user.toString().indexOf(req.user.id));
 		post.likes.splice(removeIndex, 1);
 		await post.save();
 		res.json(post.likes);
@@ -158,4 +158,64 @@ router.put('/like/:id', auth, async (req, res) => {
 		res.status(500).send('Server Error');
 	}
 });
+
+//@route POST api/post/comment/:id
+//@desc comment a post
+//@access private
+router.post(
+	'/comment/:id',
+	auth,
+	check('text', 'text is required')
+		.not()
+		.isEmpty(),
+	async (req, res) => {
+		try {
+			const user = await User.findById(req.user.id).select('-password');
+			const post = await Post.findById(req.params.id);
+
+			//Construct a new comment
+			newDate = Date.now();
+			const newComment = {
+				text: req.body.text,
+				name: user.name,
+				avatar: user.avatar,
+				date: newDate,
+				user: req.user.id,
+			};
+
+			post.comments.unshift(newComment);
+			await post.save();
+			res.json(post);
+		} catch (error) {
+			console.error(error.message);
+			res.status(500).send('Server Error');
+		}
+	}
+);
+
+//@route DELETE api/post/comment/:id
+//@desc uncomment a post
+//@access private
+router.delete('/comment/:postId/:commentId', auth, async (req, res) => {
+	try {
+		const post = await Post.findById(req.params.postId);
+		const comment = post.comments.find(c => c.id === req.params.commentId);
+		if (!comment) {
+			res.status(404).json({ msg: 'No comment is made' });
+		}
+		//check if user is the same
+		if (comment.user.toString() != req.user.id) {
+			res.status(404).json({ msg: 'Can only delete your own comment' });
+		}
+		//map all the comment with the user id
+		const removeIndex = post.comments.map(comment => comment.id.toString()).indexOf(req.params.commentId);
+		post.comments.splice(removeIndex, 1);
+		post.save();
+		res.json(post);
+	} catch (error) {
+		console.error(error.message);
+		res.status(500).send('Server Error');
+	}
+});
+
 module.exports = router;
