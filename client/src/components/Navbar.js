@@ -3,6 +3,9 @@ import { AppBar, Toolbar, IconButton, Typography, Button, makeStyles } from '@ma
 import styled from 'styled-components';
 import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../actions/auth';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -17,8 +20,27 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const Navbar = () => {
+const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const classes = useStyles();
+	const mapStateToProps = state => ({
+		auth: state.auth,
+	});
+	const guestLink = (	
+		<Button color="inherit" href="/login">
+			Login
+		</Button>
+		<Button color="inherit" href="/register">
+			register
+		</Button>
+	);
+	const authLink =(
+		<Button color="inherit" href="/login">
+			Login
+		</Button>
+		<Button color="inherit" href="/register">
+			register
+		</Button>
+	)
 	return (
 		<AppBar position="static">
 			<Toolbar>
@@ -28,15 +50,21 @@ const Navbar = () => {
 				<Typography variant="subtitle1" className={classes.title}>
 					FighterConncet
 				</Typography>
-				<Button color="inherit" href="/login">
-					Login
-				</Button>
-				<Button color="inherit" href="/register">
-					register
-				</Button>
+
 			</Toolbar>
 		</AppBar>
 	);
 };
 
-export default Navbar;
+Navbar.propTypes = {
+	logout: PropTypes.func.isRequired,
+	//auth is an object
+	auth: PropTypes.object.isRequired
+  };
+  
+//Here we uses state.auth because we want to access if the user is loading
+const mapStateToProps = state => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);
