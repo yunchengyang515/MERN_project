@@ -3,10 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar';
 import Landing from './components/Landing';
-import { Grid } from '@material-ui/core';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Dashboard from './components/dashboard/Dashboard'
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import PrivateRoute from './routing/PrivateRoute'
+import { Grid } from '@material-ui/core';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+
 
 // Redux
 import { Provider } from 'react-redux';
@@ -37,6 +41,7 @@ function App() {
 								<Route exact path="/" component={Landing} />
 								<Route exact path="/login" component={Login} />
 								<Route exact path="/register" component={Register} />
+								<PrivateRoute exact path="/dashboard" component={Dashboard} />
 								<Route path="/" render={() => <div>Page Not found </div>} />
 							</Switch>
 						</Grid>
