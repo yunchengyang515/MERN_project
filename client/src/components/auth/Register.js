@@ -4,8 +4,9 @@ import { setAlert } from '../../actions/alert';
 import { Container, Paper } from '@material-ui/core';
 import styled from 'styled-components';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { register } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
 const ComponentWrapper = styled(Paper)`
 	width: 40% !important;
@@ -55,10 +56,8 @@ const Register = props => {
 			// }
 		}
 	};
-	if(props.isAuthenticated){
-		return (
-			<Redirect to="/"/>
-		)
+	if (props.isAuthenticated == true) {
+		return <Redirect to="/" />;
 	}
 	return (
 		<section class="register">
@@ -120,6 +119,8 @@ const Register = props => {
 	);
 };
 const mapStateToProps = state => ({
-	isAuthenticated: state.auth.isAuthenticated
-  });
-export default connect(mapStateToProps, { setAlert, register, isAuthenticated })(Register);
+	setAlert: PropTypes.func.isRequired,
+	register: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
+});
+export default connect(mapStateToProps, { setAlert, register })(Register);

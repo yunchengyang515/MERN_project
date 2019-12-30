@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, Button, makeStyles } from '@material-ui/core';
 import styled from 'styled-components';
 import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi';
@@ -22,24 +22,36 @@ const useStyles = makeStyles(theme => ({
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const classes = useStyles();
+
 	const mapStateToProps = state => ({
 		auth: state.auth,
 	});
-	const guestLink = (	
+
+	const guestLinks = (	
+		<Fragment>
 		<Button color="inherit" href="/login">
 			Login
 		</Button>
 		<Button color="inherit" href="/register">
 			register
 		</Button>
+		</Fragment>
 	);
-	const authLink =(
-		<Button color="inherit" href="/login">
-			Login
+	const authLinks =(
+		<Fragment>
+		<Button color="inherit" onClick ={logout}>
+			Logout
 		</Button>
-		<Button color="inherit" href="/register">
-			register
+		<Button color="inherit" href="/post">
+			Post
 		</Button>
+		<Button color="inherit" href="/profile">
+		profile
+	</Button>
+	<Button color="inherit" href="/dashboard">
+	dashboard
+	</Button>
+	</Fragment>
 	)
 	return (
 		<AppBar position="static">
@@ -48,9 +60,12 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 					<SportsKabaddiIcon />
 				</Link>
 				<Typography variant="subtitle1" className={classes.title}>
-					FighterConncet
+					FighterConnect
 				</Typography>
-
+				{!loading && (<Fragment>
+				{ isAuthenticated ? authLinks : guestLinks}
+				</Fragment>
+				)}
 			</Toolbar>
 		</AppBar>
 	);
