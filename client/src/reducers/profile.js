@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_ERROR } from "../actions/types";
+import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE } from "../actions/types";
 
 const initialState = {
     //hold all the profile data
@@ -12,7 +12,7 @@ const initialState = {
 }
 
 export default function(state = initialState, action){
-    const{type, data} = action;
+    const{ type, data } = action;
 
     switch(type){
         //get the profile
@@ -29,5 +29,14 @@ export default function(state = initialState, action){
                 error:data,
                 loading:false
             }
+        case CLEAR_PROFILE:
+            return{
+                ...state,
+                profile:null,
+                repo:[],
+                loading:false
+            }
+        default:
+            return state;
     }
 }

@@ -1,44 +1,45 @@
-import React, { useState, Fragment } from 'react';
-import { Grid, Container, Paper } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Container, Paper } from '@material-ui/core';
 import styled from 'styled-components';
-import axios from 'axios';
-import {Link, Redirect} from 'react-router-dom'
+
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
 const ComponentWrapper = styled(Paper)`
 	width: 40% !important;
-	height: 55%;
 	left: 30%;
 	top: 4%;
 	margin-top: 10px !important;
 	position: absolute;
+	@media only screen and (max-width: 600px) {
+		width: 80% !important;
+		left: 10%;
+		top: 4%;
+	}
 `;
 const ContainerWrapper = styled(Container)`
-    padding: 15px;
-    width:100%;
-    height:100%;
+	padding: 15px;
+	width: 100%;
+	height: 80%;
 `;
 const Login = ({ login, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
-	  email: '',
-	  password: ''
+		email: '',
+		password: '',
 	});
-  
+
 	const { email, password } = formData;
-  
-	const handleChange = e =>
-	  setFormData({ ...formData, [e.target.name]: e.target.value });
-  
+
+	const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
 	const handleSubmit = async e => {
-	  e.preventDefault();
-	  login({email, password});
+		e.preventDefault();
+		login({ email, password });
 	};
 	//if isAuthenticated, redirect
-	if(isAuthenticated){
-		return (
-			<Redirect to="/"/>
-		)
+	if (isAuthenticated) {
+		return <Redirect to="/" />;
 	}
 	return (
 		<section class="register">
@@ -70,9 +71,8 @@ const Login = ({ login, isAuthenticated }) => {
 									onChange={e => handleChange(e)}
 								/>
 							</div>
-							<div class="form-group">
-							</div>
-							<input type="submit" class="btn btn-primary" value="Login"/>
+							<div class="form-group"></div>
+							<input type="submit" class="btn btn-primary" value="Login" />
 						</form>
 						<p class="my-1">
 							Haven't joined us yet? <Link to="/register">Sign Up</Link>
@@ -85,11 +85,11 @@ const Login = ({ login, isAuthenticated }) => {
 };
 Login.propTypes = {
 	login: PropTypes.func.isRequired,
-	isAuthenticated: PropTypes.bool
-  };
-  //takes state and 
-const mapStateToProps =(state)=>({
-	isAuthenticated:state.auth.isAuthenticated
-})
+	isAuthenticated: PropTypes.bool,
+};
+//takes state and
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
 
-  export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login })(Login);

@@ -1,9 +1,8 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { Container, Paper } from '@material-ui/core';
 import styled from 'styled-components';
-import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
@@ -15,6 +14,11 @@ const ComponentWrapper = styled(Paper)`
 	top: 4%;
 	margin-top: 10px !important;
 	position: absolute;
+	@media only screen and (max-width: 600px) {
+		width: 80% !important;
+		left: 10%;
+		top: 4%;
+	}
 `;
 const ContainerWrapper = styled(Container)`
 	padding: 15px;
@@ -56,7 +60,7 @@ const Register = props => {
 			// }
 		}
 	};
-	if (props.isAuthenticated == true) {
+	if (props.isAuthenticated === true) {
 		return <Redirect to="/" />;
 	}
 	return (
