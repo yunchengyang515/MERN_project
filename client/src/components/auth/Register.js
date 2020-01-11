@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Link, Redirect } from 'react-router-dom';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import Alert from '../layout/Alert';
 
 const ComponentWrapper = styled(Paper)`
 	width: 40% !important;
@@ -68,6 +69,7 @@ const Register = props => {
 			<div class="dark-overlay">
 				<ComponentWrapper>
 					<ContainerWrapper>
+						<Alert/>
 						<h1 class="large text-primary">Sign Up</h1>
 						<p class="lead">
 							<i class="fas fa-user"></i> Create Your Account

@@ -6,6 +6,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import Alert from '../layout/Alert';
 const ComponentWrapper = styled(Paper)`
 	width: 40% !important;
 	left: 30%;
@@ -46,6 +47,7 @@ const Login = ({ login, isAuthenticated }) => {
 			<div class="dark-overlay">
 				<ComponentWrapper>
 					<ContainerWrapper>
+					<Alert/>
 						<h1 class="large text-primary">Login</h1>
 						<p class="lead">
 							<i class="fas fa-user"></i> Login with your account

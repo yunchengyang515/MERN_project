@@ -1,10 +1,11 @@
-import React, { useState, Fragment} from 'react'
+import React, { useState, Fragment, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from"../../actions/profile"
 import{ Link, withRouter } from "react-router-dom"
 import styled from "styled-components"
 import { Container, Paper } from '@material-ui/core';
+import Alert from '../layout/Alert';
 //Todo:
 //1: fix the height
 //2: use typography for texts
@@ -29,13 +30,13 @@ const ContainerWrapper = styled(Container)`
 	height: 100%;
 `;
 
-const EditProfile = ({ createProfile, history }) => {
+const EditProfile = ({ createProfile, history,getCurrentProfile,profile:{profile,loading} }) => {
 
     const onChange = e =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = e => {
 		e.preventDefault();
-		createProfile(formData, history);
+		createProfile(formData, history,true);
 	};
     const [formData, setFormData] = useState({
 		location: '',
@@ -45,6 +46,25 @@ const EditProfile = ({ createProfile, history }) => {
         facebook:""
     });
 
+   
+
+    //Need a userEffect to run getCurrentProfile and brings in the data
+
+    const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+    useEffect(() => {
+        getCurrentProfile();
+    
+        setFormData({
+            //when it is loading or when there is no value, set to blank
+            location:loading || !profile.location ? '' : profile.location,
+            role:loading || !profile.role ? '' : profile.role,
+            experience:loading || !profile.experience ? '' : profile.experience,
+            bio:loading || !profile.bio ? '' : profile.bio,
+            facebook: loading || !profile.facebook?'':profile.facebook
+        });
+      }, [loading, getCurrentProfile]);//when it loads,run useEffect
+
     const {
         location,
         role,
@@ -53,27 +73,29 @@ const EditProfile = ({ createProfile, history }) => {
         facebook
     } = formData;
 
-    const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
     return (
         <section class="register">
         <div class="dark-overlay">
             <ComponentWrapper>
                 <ContainerWrapper>
-                    <h1 class="large text-primary">Edit</h1>
+                    <Alert/>
+
+                    <h1 class="large text-primary">Edit Your Profile</h1>
                     <p class="lead">
-                        <i class="fas fa-user"></i> Create your FighterConnect profile
+                        <i class="fas fa-user"></i> Your Fighter Profile
                     </p>
-                    <small>* = required field</small>
                     <form class="form" action="create-profile.html" onSubmit={e => onSubmit(e)}>
                         <div class="form-group">
                             <input
                                 type="text"
                                 placeholder="* Your base gym"
+                                value ={location}
                                 name="location"
                                 onChange={e => onChange(e)}
                             />
                             <small className='form-text'>
-						    Suburb & state suggested (eg. Carnegie, VIC)
+						    Your base gym
 					        </small>
                          </div>
                         <div className='form-group'>
@@ -86,7 +108,7 @@ const EditProfile = ({ createProfile, history }) => {
                                 <option value='Pro Fighter'>Pro Fighter</option>
                             </select>
                             <small className='form-text'>
-                                Give us an idea of what you want to achieve
+                                Your goal and role
                             </small>
 				        </div>
                         <div class="form-group">
@@ -99,7 +121,7 @@ const EditProfile = ({ createProfile, history }) => {
                                 <option value={5}> more than 4 years </option>
                             </select>
                             <small className='form-text'>
-						    *How many years have you trained
+						    Years of training experience
 					        </small>
                         </div>
                         <div class="form-group">
@@ -108,9 +130,10 @@ const EditProfile = ({ createProfile, history }) => {
                                 placeholder=" "
                                 name="bio"
                                 onChange={e => onChange(e)}
+                                value={bio}
                             />
                             <small className='form-text'>
-						    Describe yourself in few sentences
+						    Bio
 					        </small>
                          </div>
                         
@@ -139,7 +162,7 @@ const EditProfile = ({ createProfile, history }) => {
                         </Fragment>
                       
                 )}
-                <input type="submit" class="btn btn-primary" value="Create Profile" />
+                <input type="submit" class="btn btn-primary" value="Update Profile" />
                     </form>
                 </ContainerWrapper>
             </ComponentWrapper>
@@ -153,6 +176,6 @@ const mapStateToProps = state => ({
 	profile: state.profile
 });
 //withRouter 
-export default connect(mapStateToProps, { createProfile })(
-	withRouter(CreateProfile)
+export default connect(mapStateToProps, { createProfile,getCurrentProfile })(
+	withRouter(EditProfile )
 );

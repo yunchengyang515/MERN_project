@@ -5,6 +5,7 @@ import { createProfile } from"../../actions/profile"
 import{ Link, withRouter } from "react-router-dom"
 import styled from "styled-components"
 import { Container, Paper } from '@material-ui/core';
+import Alert from '../layout/Alert';
 //Todo:
 //1: fix the height
 //2: use typography for texts
@@ -59,6 +60,7 @@ const CreateProfile = ({ createProfile, history }) => {
         <div class="dark-overlay">
             <ComponentWrapper>
                 <ContainerWrapper>
+                <Alert/>
                     <h1 class="large text-primary">Create Profile</h1>
                     <p class="lead">
                         <i class="fas fa-user"></i> Create your FighterConnect profile
