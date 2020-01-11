@@ -39,13 +39,13 @@ router.post(
 		//only status is required, skills are required
 		//check in the middleware functions
 
-		check('status', 'status is required')
+		check('location', 'location is required')
 			.not()
 			.isEmpty(),
-		check('skills', 'skills is required')
+		check('role', 'role is required')
 			.not()
 			.isEmpty(),
-		check('handle', 'hanlde is required')
+		check('experience', 'experience is required')
 			.not()
 			.isEmpty(),
 		auth,
@@ -64,24 +64,11 @@ router.post(
 		//user will be the user id in the request
 		//Note: to access user, auth is needed in the middleware chain
 		//the company in the profileObject is equal to the company in the request body
-		if (req.body.company) profileObject.company = req.body.company;
-		if (req.body.handle) profileObject.handle = req.body.handle;
-		if (req.body.website) profileObject.website = req.body.website;
 		if (req.body.location) profileObject.location = req.body.location;
-		if (req.body.status) profileObject.status = req.body.status;
+		if (req.body.role) profileObject.role = req.body.role;
+		if (req.body.experience) profileObject.experience = req.body.experience;
 		if (req.body.bio) profileObject.bio = req.body.bio;
-		if (req.body.githubusername) profileObject.githubusername = req.body.githubusername;
-		//Skills need to be split into an array
-		if (req.body.skills != undefined) {
-			profileObject.skills = req.body.skills.split(',').map(x => x.trim());
-			//trim the string to igonre the space
-		}
-		profileObject.social = {};
-		if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
-		if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
-		if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
-		if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
-		if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
+		if (req.body.facebook) profileFields.facebook = req.body.facebook;
 
 		//Insert data into mongo
 		try {

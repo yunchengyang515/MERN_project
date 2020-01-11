@@ -6,6 +6,8 @@ import Dashboard from './components/dashboard/Dashboard';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import PrivateRoute from './routing/PrivateRoute';
+import CreateProfile from './components/profile-forms/CreateProfile';
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Redux
@@ -36,6 +38,7 @@ function App() {
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/register" component={Register} />
 						<PrivateRoute exact path="/dashboard" component={Dashboard} />
+						<PrivateRoute exact path="/create-profile" component={CreateProfile} />
 						<Route path="/" render={() => <div>Page Not found </div>} />
 					</Switch>
 					

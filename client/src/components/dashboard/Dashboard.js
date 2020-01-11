@@ -6,6 +6,7 @@ import { getCurrentProfile } from '../../actions/profile';
 import Spinner from "../layout/Spinner"
 import { Container } from "@material-ui/core"
 import styled from "styled-components"
+import { DashboardAction } from './DashboardAction';
 
 //use useEffect hook to make sure as soon as the component loads, it will load the
 //get profile function
@@ -24,6 +25,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile:{ profile, loadi
       <p className='lead'>
         <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
+	  <DashboardAction/>
 	  </Fragment>
 	)
 
