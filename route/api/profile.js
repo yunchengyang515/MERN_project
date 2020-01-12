@@ -17,8 +17,8 @@ router.get('/me', auth, async (req, res) => {
 		//populate the information with another model
 		const profile = await Profile.findOne({
 			user: req.user.id,
-    }).populate('user', ['name', 'avatar']);
-    
+		}).populate('user', ['name', 'avatar']);
+
 		if (!profile) {
 			return res.status(400).json({ msg: 'No profile found' });
 		}
@@ -164,31 +164,26 @@ router.put(
 	'/experience',
 	[
 		auth,
-		check('title', 'Title is required')
+		check('isPro', 'isPro is required')
 			.not()
 			.isEmpty(),
-		check('company', 'company is required')
-			.not()
-			.isEmpty(),
-		check('from', 'From date is required')
+		check('discipline', 'discipline is required')
 			.not()
 			.isEmpty(),
 	],
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.status(400).json({ errors: errors.array() });
+			return res.status(400)
+			//.json({ errors: errors.array() });
 		}
-		const { title, company, location, from, to, current, description } = req.body;
+		const { promotion, discipline, isPro, result } = req.body;
 
 		const newData = {
-			title,
-			company,
-			location,
-			from,
-			to,
-			current,
-			description,
+			promotion,
+			discipline,
+			isPro,
+			result,
 		};
 		try {
 			//remove user profile
@@ -196,6 +191,7 @@ router.put(
 				user: req.user.id,
 				//which we get from the token
 			});
+			console.log(newData)
 			profile.experience.unshift(newData);
 			//with unshift, the newest one will be at the first
 
@@ -203,8 +199,7 @@ router.put(
 			res.json(profile);
 		} catch (error) {
 			console.error(error.message);
-
-			res.status(500).send('Server Error');
+			res.status(500).send(error.message);
 		}
 	}
 );
@@ -238,114 +233,5 @@ router.delete(
 		}
 	}
 );
-//@route PUT api/profile/education
-//@desc update education field in profile
-//@access private
-router.put(
-	'/education',
-	[
-		auth,
-		check('school', 'school is required')
-			.not()
-			.isEmpty(),
-		check('degree', 'degree is required')
-			.not()
-			.isEmpty(),
-		check('from', 'From date is required')
-			.not()
-			.isEmpty(),
-		check('fieldofstudy', 'fieldofstudy is required')
-			.not()
-			.isEmpty(),
-	],
-	async (req, res) => {
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			return res.status(400).json({ errors: errors.array() });
-		}
-		const { degree, school, from, fieldofstudy, to, current, description } = req.body;
 
-		const newData = {
-			degree,
-			school,
-			from,
-			fieldofstudy,
-			to,
-			current,
-			description,
-		};
-		try {
-			//remove user profile
-			profile = await Profile.findOne({
-				user: req.user.id,
-				//which we get from the token
-			});
-			profile.education.unshift(newData);
-			//with unshift, the newest one will be at the first
-
-			await profile.save();
-			res.json(profile);
-		} catch (error) {
-			console.error(error.message);
-
-			res.status(500).send('Server Error');
-		}
-	}
-);
-
-//@route delete api/profile/education/:edu_id
-//@desc delete education field in profile
-//@access private
-router.delete(
-	'/education/:edu_id',
-
-	auth,
-
-	async (req, res) => {
-		try {
-			//remove user profile
-			profile = await Profile.findOne({
-				user: req.user.id,
-				//which we get from the token
-			});
-			//get remove index
-			removeIndex = profile.education.map(e => e.id).indexOf(req.params.edu_id);
-
-			//use splice to takeout
-			profile.education.splice(removeIndex, 1);
-			await profile.save();
-			res.json(profile);
-		} catch (error) {
-			console.error(error.message);
-
-			res.status(500).send('Server Error');
-		}
-	}
-);
-
-//@route get api/profile/github/:username
-//@desc get user github repos
-//@access public
-router.get('/github/:username', (req, res) => {
-	try {
-		const options = {
-			uri: `https://api.github.com/users/${req.params.username}/repos?per_page=6&
-      sort=created:asc&client_id=${config.get('githubClientId')}&client_secret=${config.get('githubClientSecret')}`,
-			method: 'GET',
-			headers: { 'user-agent': 'node.js' },
-		};
-		request(options, (error, response, body) => {
-			if (error) {
-				console.log(error);
-			}
-			if (response.statusCode != 200) {
-				return res.status(404).json({ message: 'no github profile found' });
-			}
-			res.json(JSON.parse(body));
-		});
-	} catch (error) {
-		console.error(error.message);
-		res.status(500).send('Server Error');
-	}
-});
 module.exports = router;

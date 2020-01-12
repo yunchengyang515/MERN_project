@@ -21,12 +21,8 @@ const ProfileSchema = new mongoose.Schema({
 	},
 	githubusername: {
 		type: String,
-  },
-  experience:{
-    type: Number,
-    required:true
-  },
-	fightexperience: [
+	},
+	experience: [
 		{
 			promotion: {
 				type: String,
@@ -36,7 +32,9 @@ const ProfileSchema = new mongoose.Schema({
 			},
 			isPro: {
 				type: Boolean,
-				required: true,
+			},
+			result: {
+				type: String,
 			},
 		},
 	],
@@ -70,8 +68,8 @@ const ProfileSchema = new mongoose.Schema({
 			},
 		},
 	], //an array
-	facebook:{
-		type: String
+	facebook: {
+		type: String,
 	}, //an object
 	date: {
 		type: Date,

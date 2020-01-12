@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { GET_PROFILE, PROFILE_ERROR } from './types';
+import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from './types';
 
 export const getCurrentProfile = () => async dispatch => {
 	try {
@@ -49,3 +49,36 @@ export const createProfile = (formData, history, edit = false) => async dispatch
 	}
 
 };
+
+export const addFightExperience = (formData, history) => async dispatch=>{
+	try {
+		const config = {
+		  headers: {
+			'Content-Type': 'application/json'
+		  }
+		};
+		//add new experience
+		const res = await axios.put('/api/profile/experience', formData, config);
+
+		//get the profile after update
+		dispatch({
+			type: UPDATE_PROFILE,
+			data: res.data,
+		});
+		
+		dispatch(setAlert('Experience added', 'success'));
+
+		//if added a new experience, redirect to dashboard
+		
+		  history.push('/dashboard');
+		}
+	
+	catch(err){
+		dispatch({
+			type: PROFILE_ERROR,
+			data: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+
+};
+

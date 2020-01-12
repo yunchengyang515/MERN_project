@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE } from "../actions/types";
+import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE, UPDATE_PROFILE } from "../actions/types";
 
 const initialState = {
     //hold all the profile data
@@ -34,6 +34,12 @@ export default function(state = initialState, action){
                 ...state,
                 profile:null,
                 repo:[],
+                loading:false
+            }
+        case UPDATE_PROFILE:
+            return{
+                ...state,
+                profile:data,
                 loading:false
             }
         default:
