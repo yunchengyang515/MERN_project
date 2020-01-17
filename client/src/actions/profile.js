@@ -74,6 +74,12 @@ export const addFightExperience = (formData, history) => async dispatch=>{
 		}
 	
 	catch(err){
+		const errors = err.response.data.errors;
+
+		if (errors) {
+		  errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+		}
+		
 		dispatch({
 			type: PROFILE_ERROR,
 			data: { msg: err.response.statusText, status: err.response.status },

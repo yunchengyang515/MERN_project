@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { AppBar, Toolbar, Typography, Button, makeStyles } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button, makeStyles, Hidden } from '@material-ui/core';
 import styled from 'styled-components';
 import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi';
 import DashboardTwoToneIcon from '@material-ui/icons/DashboardTwoTone';
@@ -39,11 +39,14 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const guestLinks = (
 		<LinksWrapper>
 			<LinkButton color="inherit" href="/login">
+				<Hidden xsDown>
 				<Typography variant="subtitle2">login</Typography>
+				</Hidden>
 			</LinkButton>
 			<LinkButton color="inherit" href="/register">
-				
+				<Hidden xsDown>
 				<Typography variant="subtitle2">Register</Typography>
+				</Hidden>
 			</LinkButton>
 		</LinksWrapper>
 	);
@@ -51,11 +54,15 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 		<LinksWrapper>
 			<LinkButton color="inherit" onClick={logout}>
 				<ExitToAppIcon/>
+				<Hidden smDown>
 			<Typography variant="subtitle2">logout</Typography>
+			</Hidden>
 			</LinkButton>
 			<LinkButton color="inherit" href="/dashboard">
 			<DashboardTwoToneIcon/>
+			<Hidden smDown>
 			<Typography variant="subtitle2">dashboard</Typography>
+			</Hidden>
 			</LinkButton>
 		</LinksWrapper>
 	);

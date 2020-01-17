@@ -59,18 +59,17 @@ export const login = ({ email, password }) => async dispatch => {
 	const body = JSON.stringify({ email, password });
 	console.log(body)
 	try {
-		const retData = await axios.post('/api/auth', body, config
-		);
+		const retData = await axios.post('/api/auth', body, config);
 		dispatch({
 			type: LOGIN_SUCCESS,
-			data: retData.data,
+			payload: retData.data,
 		});
 		dispatch(loadUser());
 	} catch (error) {
-		const errors = error.response.data.errors;
-		if (errors) {
-			errors.forEach(err => dispatch(setAlert(err, 'danger')));
-		}
+		// const errors = error.response.data.errors;
+		// if (errors) {
+		// 	errors.forEach(err => dispatch(setAlert(err, 'danger')));
+		// }
 		dispatch({
 			type: LOGIN_FAILED,
 		});

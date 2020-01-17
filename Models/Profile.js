@@ -26,6 +26,7 @@ const ProfileSchema = new mongoose.Schema({
 		{
 			promotion: {
 				type: String,
+			
 			},
 			discipline: {
 				type: String,

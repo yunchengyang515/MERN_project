@@ -178,20 +178,20 @@ router.put(
 			//.json({ errors: errors.array() });
 		}
 		const { promotion, discipline, isPro, result } = req.body;
-
+		
 		const newData = {
 			promotion,
 			discipline,
 			isPro,
 			result,
 		};
+		console.log(req.body)
 		try {
 			//remove user profile
 			profile = await Profile.findOne({
 				user: req.user.id,
 				//which we get from the token
 			});
-			console.log(newData)
 			profile.experience.unshift(newData);
 			//with unshift, the newest one will be at the first
 
