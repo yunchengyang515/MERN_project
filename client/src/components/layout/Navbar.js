@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi';
 import DashboardTwoToneIcon from '@material-ui/icons/DashboardTwoTone';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import FaceIcon from '@material-ui/icons/Face';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -25,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const LinksWrapper = styled.div`
 		display: flex;
-		width:15%;	
+		
 	`;
 	const LinkButton = styled(Button)`
 		text-transform: capitalize !important;
@@ -39,13 +40,17 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const guestLinks = (
 		<LinksWrapper>
 			<LinkButton color="inherit" href="/login">
-				<Hidden xsDown>
+				
 				<Typography variant="subtitle2">login</Typography>
-				</Hidden>
+				
 			</LinkButton>
 			<LinkButton color="inherit" href="/register">
-				<Hidden xsDown>
 				<Typography variant="subtitle2">Register</Typography>
+			</LinkButton>
+			<LinkButton color="inherit" href="/profiles">
+				<FaceIcon/>
+				<Hidden xsDown>
+				<Typography variant="subtitle2">Profiles</Typography>
 				</Hidden>
 			</LinkButton>
 		</LinksWrapper>
@@ -54,15 +59,21 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 		<LinksWrapper>
 			<LinkButton color="inherit" onClick={logout}>
 				<ExitToAppIcon/>
-				<Hidden smDown>
+				<Hidden xsDown>
 			<Typography variant="subtitle2">logout</Typography>
 			</Hidden>
 			</LinkButton>
 			<LinkButton color="inherit" href="/dashboard">
 			<DashboardTwoToneIcon/>
-			<Hidden smDown>
+			<Hidden xsDown>
 			<Typography variant="subtitle2">dashboard</Typography>
 			</Hidden>
+			</LinkButton>
+			<LinkButton color="inherit" href="/profiles">
+				<FaceIcon/>
+				<Hidden xsDown>
+				<Typography variant="subtitle2">Profiles</Typography>
+				</Hidden>
 			</LinkButton>
 		</LinksWrapper>
 	);
