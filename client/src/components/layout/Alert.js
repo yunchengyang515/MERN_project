@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 const ComponentWrapper = styled.div`
 margin-top:0;
-width:100%
+width:100%;
 `
 
 const Alert = ({ alerts }) =>

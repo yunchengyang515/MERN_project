@@ -192,7 +192,7 @@ router.put(
 				user: req.user.id,
 				//which we get from the token
 			});
-			profile.experience.unshift(newData);
+			profile.fightexperience.unshift(newData);
 			//with unshift, the newest one will be at the first
 
 			await profile.save();
@@ -220,10 +220,10 @@ router.delete(
 				//which we get from the token
 			});
 			//get remove index
-			removeIndex = profile.experience.map(e => e.id).indexOf(req.params.exp_id);
+			removeIndex = profile.fightexperience.map(e => e.id).indexOf(req.params.exp_id);
 
 			//use splice to takeout
-			profile.experience.splice(removeIndex, 1);
+			profile.fightexperience.splice(removeIndex, 1);
 			await profile.save();
 			res.json(profile);
 		} catch (error) {

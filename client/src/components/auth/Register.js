@@ -25,7 +25,7 @@ const ContainerWrapper = styled(Container)`
 	padding: 15px;
 `;
 
-const Register = props => {
+const Register =({ setAlert, register, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -40,10 +40,10 @@ const Register = props => {
 		e.preventDefault();
 		if (password !== password2) {
 			//try it without redux first
-			props.setAlert('Password does not match', 'danger');
+			setAlert('Password does not match', 'danger');
 		} else {
 			//this redux action takes care of axios post
-			props.register({ name, email, password });
+		    register({ name, email, password });
 			// const newUser = { name, email, password };
 			// try {
 			// 	// axios example
@@ -61,9 +61,10 @@ const Register = props => {
 			// }
 		}
 	};
-	if (props.isAuthenticated === true) {
+	if (isAuthenticated) {
 		return <Redirect to="/" />;
-	}
+	};
+	
 	return (
 		<section class="register">
 			<div class="dark-overlay">
@@ -124,9 +125,13 @@ const Register = props => {
 		</section>
 	);
 };
-const mapStateToProps = state => ({
+Register.propTypes= state => ({
 	setAlert: PropTypes.func.isRequired,
 	register: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool,
 });
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated
+  });
 export default connect(mapStateToProps, { setAlert, register })(Register);

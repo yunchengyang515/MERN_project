@@ -12,7 +12,7 @@ const initialState = {
 }
 
 export default function(state = initialState, action){
-    const{ type, data } = action;
+    const{ type, payload } = action;
 
     switch(type){
         //get the profile
@@ -20,13 +20,13 @@ export default function(state = initialState, action){
             return{
                 //current state
                 ...state,
-                profile:data,
+                profile:payload,
                 loading:false
             };
         case PROFILE_ERROR:
             return{
                 ...state,
-                error:data,
+                error:payload,
                 loading:false
             }
         case CLEAR_PROFILE:
@@ -39,7 +39,7 @@ export default function(state = initialState, action){
         case UPDATE_PROFILE:
             return{
                 ...state,
-                profile:data,
+                profile:payload,
                 loading:false
             }
         default:

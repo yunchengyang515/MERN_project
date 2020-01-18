@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Moment from 'react-moment';
 import {
 	Hidden,
 	Table,
@@ -12,9 +11,15 @@ import {
 	TableContainer,
 	Paper,
 	Typography,
+	Button,
 } from '@material-ui/core';
 import styled from 'styled-components';
+import { deleteExperience } from "../../actions/profile"
 
+
+const ComponentWrapper = styled.div`
+margin-top:10px;
+`
 const ContainerWrapper = styled(TableContainer)`
 	min-width: 90% !important;
 `;
@@ -27,10 +32,13 @@ const TextWrapper = styled(Typography)`
 	margin-bottom: 1.5rem !important;
 	color: #343a40;
 `;
-const Experience = ({ experience }) => {
-	console.log(experience);
+ const ButtonWrapper = styled(Button)`
+ background-color:#ff004c !important;
+ color:white !important;
+ `
+const Experience = ({ fightexperience,deleteExperience }) => {
 
-	const DisplayExperience = experience.filter(exp=> exp.discipline != undefined).map(exp => (
+	const DisplayExperience = fightexperience.filter(exp=> exp.discipline != undefined).map(exp => (
 		<TableRow>
 			<TableCell>
 				<Typography>{exp.promotion? exp.promotion : "--"}</Typography>
@@ -44,10 +52,17 @@ const Experience = ({ experience }) => {
 			<TableCell>
 				<Typography>{exp.result}</Typography>
 			</TableCell>
+			<TableCell>
+			<ButtonWrapper onClick={() => deleteExperience(exp._id)}> 
+			<Typography variant="button">
+			Delete
+			</Typography>
+			</ButtonWrapper>
+			</TableCell>
 		</TableRow>
 	));
 	return (
-		<Fragment>
+		<ComponentWrapper>
 			<TextWrapper variant="h5"> Fight Experience </TextWrapper>
 			<ContainerWrapper component={Paper}>
 				<TableWrapper>
@@ -65,17 +80,22 @@ const Experience = ({ experience }) => {
 							<TableCell>
 								<Typography variant="h6">Result</Typography>
 							</TableCell>
+							<TableCell></TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>{DisplayExperience}</TableBody>
 				</TableWrapper>
 			</ContainerWrapper>
-		</Fragment>
+		</ComponentWrapper>
 	);
 };
 
 Experience.propTypes = {
 	experience: PropTypes.array.isRequired,
+	deleteExperience: PropTypes.func.isRequired
 };
 
-export default Experience;
+export default connect(
+	null,
+	{ deleteExperience }
+  )(Experience);;

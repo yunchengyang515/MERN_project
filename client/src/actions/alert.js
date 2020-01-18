@@ -2,11 +2,11 @@ import { SET_ALERT, REMOVE_ALERT} from "./types"
 import uuid from 'uuid'; 
 
 //Then the data in the dispatch method will be taken as action parameter in the reducer
-export const setAlert = (msg, alertType, timeout = 5000) => dispatch => {
+export const setAlert = (msg, alertType, timeout = 1000) => dispatch => {
     const id = uuid.v4();
     dispatch({
       type: SET_ALERT,
-      data: { msg, alertType, id }
+      payload: { msg, alertType, id }
     });
-    setTimeout(() => dispatch({ type: REMOVE_ALERT, data: id }), timeout);
+    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
   };

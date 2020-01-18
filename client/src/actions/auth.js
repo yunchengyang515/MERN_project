@@ -16,7 +16,7 @@ export const loadUser = () => async dispatch => {
 		dispatch({
 			type: USER_LOADED,
 			//the data passed back will be the user
-			data: res.data,
+			payload: res.data,
 		});
 	} catch (err) {
 		dispatch({
@@ -36,12 +36,12 @@ export const register = ({ name, email, password }) => async dispatch => {
 		const retData = await axios.post('/api/user', body, config);
 		dispatch({
 			type: REGISTER_SUCCESS,
-			data: retData.data,
+			payload: retData.data,
 		});
 	} catch (error) {
-		const errors = error.response.data.errors;
+		const errors = error.response.data.errors
 		if (errors) {
-			errors.forEach(err => dispatch(setAlert(err, 'danger')));
+			errors.forEach(err => dispatch(setAlert(err.msg, 'danger')));
 		}
 		dispatch({
 			type: REGISTER_FAIL,
