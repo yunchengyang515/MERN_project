@@ -3,6 +3,7 @@ import { getProfiles } from '../../actions/profile';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileItem from"../profile/ProfileItem";
+import Gallery from './Gallery';
 
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 	useEffect(() => {
@@ -13,6 +14,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 		<Spinner />
 	) : (
 		<Fragment>
+			<Gallery/>
 			{profiles.length > 0 ? (
 				//Due to me messing up the database, some profile belongs to user who
 				//already not exist, darn this bug took me a while
