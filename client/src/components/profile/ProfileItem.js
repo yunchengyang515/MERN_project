@@ -60,7 +60,10 @@ const ProfileItem = ({ profile: { user, status, fightexperience, experience, rol
 				) : <DetailTextWrap> </DetailTextWrap>}
 			</DetailWrap>
 		);
-	};
+    };
+    const DisplayFightExperience =()=>{
+        
+    }
 	return (
 		<ItemWrap>
 			<Link>
@@ -69,6 +72,7 @@ const ProfileItem = ({ profile: { user, status, fightexperience, experience, rol
 					<CardContentWrapper>
                         <Typography variant = "h5" style ={{color:"#343a40"}}>{user.name}</Typography>
                         {DisplayDetail()}</CardContentWrapper>
+
 				</CardWrapper>
 			</Link>
 		</ItemWrap>
