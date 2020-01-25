@@ -335,8 +335,16 @@
   /* Landing Page */
   .landing {
     position: relative;
-    background: url('../src/img/fighter-2.jpg') no-repeat center center/cover;
+    background: url(/static/media/fighter-2.88e99383.jpg) no-repeat center center/cover;
     height: 100vh;
+    margin-top: -5px;
+  }
+
+  section{
+    position: relative;
+    background-color:black ;
+    height:100%;
+    margin-top:-5px;
   }
   .register {
     position: relative;

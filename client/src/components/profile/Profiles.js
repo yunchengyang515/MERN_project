@@ -4,7 +4,14 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileItem from"../profile/ProfileItem";
 import Gallery from './Gallery';
-
+import styled from "styled-components";
+import { Container } from "@material-ui/core"
+const ComponentWrap = styled(Container)`
+max-width: 80vw;
+background-color: white;
+height:100%;
+padding-top:10px;
+`
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 	useEffect(() => {
 		getProfiles();
@@ -13,8 +20,9 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 	return loading ? (
 		<Spinner />
 	) : (
-		<Fragment>
-			<Gallery/>
+		<section>
+		<ComponentWrap container>
+			<Gallery style/>
 			{profiles.length > 0 ? (
 				//Due to me messing up the database, some profile belongs to user who
 				//already not exist, darn this bug took me a while
@@ -27,7 +35,8 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 			<h4> Profile not found </h4>
 
 			}
-		</Fragment>
+		</ComponentWrap>
+		</section>
 	);
 };
 
