@@ -5,7 +5,9 @@
     --light-color: #f4f4f4;
     --danger-color: #dc3545;
     --success-color: #28a745;
+    
   }
+ 
   
   * {
     box-sizing: border-box;
@@ -17,7 +19,7 @@
     font-family: 'Raleway', sans-serif;
     font-size: 1rem;
     line-height: 1.6;
-    background-color: #fff;
+    background-color:var(--dark-color);
     color: #333;
   }
   

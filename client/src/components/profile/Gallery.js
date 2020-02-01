@@ -51,9 +51,9 @@ const Gallery = () => {
 	return (
 		<ComponentWrap>
             <GridListWrap cols={2.5}>
-			{DisplaySingleTile({ url: process.env.PUBLIC_URL + '/galleryPic1.jpg', title: 'Find Training Outside Of The Gym' })}
+			{DisplaySingleTile({ url: process.env.PUBLIC_URL + '/galleryPic1.jpg', title: 'Versatile Training Options' })}
 			{DisplaySingleTile({ url: process.env.PUBLIC_URL + '/galleryPic2.jpg', title: 'Build A Solid Community' })}
-			{DisplaySingleTile({ url: process.env.PUBLIC_URL + '/galleryPic3.jpg', title: 'Improve With Other Fighters' })}
+			{DisplaySingleTile({ url: process.env.PUBLIC_URL + '/galleryPic3.jpg', title: 'Improve Together' })}
             </GridListWrap>
         </ComponentWrap>
 	);

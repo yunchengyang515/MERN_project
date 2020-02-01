@@ -9,8 +9,9 @@ import { Container } from "@material-ui/core"
 const ComponentWrap = styled(Container)`
 max-width: 80vw;
 background-color: white;
-height:100%;
 padding-top:10px;
+padding-bottom:10px;
+position:relative;
 `
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 	useEffect(() => {
@@ -20,7 +21,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 	return loading ? (
 		<Spinner />
 	) : (
-		<section>
+		
 		<ComponentWrap container>
 			<Gallery style/>
 			{profiles.length > 0 ? (
@@ -36,8 +37,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 
 			}
 		</ComponentWrap>
-		</section>
-	);
+		);
 };
 
 const mapStateToProps = state => ({
