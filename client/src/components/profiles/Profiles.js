@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from 'react';
 import { getProfiles } from '../../actions/profile';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import ProfileItem from"../profile/ProfileItem";
+import ProfileItem from"./ProfileItem";
 import Gallery from './Gallery';
 import styled from "styled-components";
 import { Container, Grid } from "@material-ui/core"

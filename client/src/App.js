@@ -9,8 +9,9 @@ import PrivateRoute from './routing/PrivateRoute';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import EditProfile from './components/profile-forms/EditProfile';
 import AddExperience from './components/profile-forms/AddExperience';
-import Profiles from './components/profile/Profiles';
-import Profile from "./components/profile/Profile"
+import Profiles from './components/profiles/Profiles';
+import UserProfile from './components/userProfile/UserProfile';
+
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -46,7 +47,7 @@ function App() {
 						<PrivateRoute exact path="/edit-profile" component={EditProfile} />
 						<PrivateRoute exact path="/add-fight-experience" component={AddExperience} />
 						<Route path="/profiles" component={Profiles} />
-						<Route path="/profile/:id" component={Profile} />
+						<Route path="/profile/:id" component={UserProfile} />
 						<Route path="/" render={() => <div>Page Not found </div>} />
 					</Switch>
 				</Fragment>
