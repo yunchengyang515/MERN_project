@@ -5,13 +5,17 @@ import Spinner from '../layout/Spinner';
 import ProfileItem from"../profile/ProfileItem";
 import Gallery from './Gallery';
 import styled from "styled-components";
-import { Container } from "@material-ui/core"
+import { Container, Grid } from "@material-ui/core"
 const ComponentWrap = styled(Container)`
 max-width: 80vw;
-background-color: white;
+background-color: #F8F5F5;
 padding-top:10px;
 padding-bottom:10px;
 position:relative;
+
+`
+const ProfilesWrap = styled(Grid)`
+
 `
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 	useEffect(() => {
@@ -24,6 +28,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 		
 		<ComponentWrap container>
 			<Gallery style/>
+			<ProfilesWrap container>
 			{profiles.length > 0 ? (
 				//Due to me messing up the database, some profile belongs to user who
 				//already not exist, darn this bug took me a while
@@ -36,6 +41,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 			<h4> Profile not found </h4>
 
 			}
+			</ProfilesWrap>
 		</ComponentWrap>
 		);
 };

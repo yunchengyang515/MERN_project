@@ -1,13 +1,20 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardContent, CardMedia, Typography, Link, Button } from '@material-ui/core';
-import styled from 'styled-components';
 
-const ItemWrap = styled.div`
+//material ui imports
+import { Card, CardContent, CardMedia, Typography, Link, Button,Grid,Avatar} from '@material-ui/core';
+import styled from 'styled-components';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+
+//global style components
+const ItemWrap = styled(Grid)`
+	width:50%;
 	margin-bottom: 15px;
+	height:300px;
 `;
 const CardWrapper = styled(Card)`
 	display: flex;
+	flex-direction: column;
 	width: 80%;
 	margin: auto;
 	@media only screen and (max-width: 600px) {
@@ -20,32 +27,32 @@ const CardContentWrapper = styled(CardContent)`
 	flex-direction: column;
 	width: 100%;
 	margin-left: 5%;
+	align-items: flex-start;
 `;
 
 const DetailWrap = styled.div`
 	display: flex;
+	flex-direction:column
 	margin-top: 10px;
-	@media only screen and (max-width: 1100px) {
-		flex-direction: column;
-	}
 `;
-const DetailTextWrap = styled.div`
+const DetailRowWrap = styled.div`
 	display: flex;
-	margin-right: 5px;
-	width: 33.3%;
-	@media only screen and (max-width: 1100px) {
-		width: 80%;
-	}
+	margin-right: 10px;
+	align-items: center;
+	margin-bottom: 10px;
 `;
-const CardMediaWrap = styled(CardMedia)`
-	width: auto !important ;
+const DetailItemWrap = styled.div`
+	display: flex;
+	margin-right: 10px;
+`;
+const AvatarWrap = styled(Avatar)`
+	width: 60px !important ;
 	height: 60px !important;
 	border-radius: 200px !important;
-	margin: 5px;
+	margin-right: 30px;
 `;
 
 const LinkWrapper = styled(Link)`
-	width:25%;
 	margin: auto !important;
 	color:#ff4d4d !important;
 .MuiTypography-body1{
@@ -54,32 +61,50 @@ const LinkWrapper = styled(Link)`
 }
 
 `;
+
+const DotWrapper = styled.span`
+	height: 8px;
+	width: 8px;
+	border-radius: 50%;
+	display: inline-block;
+	background-color: #ff4d4d;
+	align-self: center;
+	margin-right: 5px;
+	margin-left: 8px;
+`;
+//main render function
 const ProfileItem = ({ profile: { _id, user, status, fightexperience, experience, role, location } }) => {
+	console.log(user.avatar)
 	const DisplayDetail = () => {
 		return (
 			<DetailWrap>
-				<DetailTextWrap>
-					<Typography variant="body1">
-						<span style={{ color: '#6699ff' }}>Location:</span> {location}
-					</Typography>
-				</DetailTextWrap>
-				<DetailTextWrap>
-					<Typography variant="body1">
-						{' '}
-						<span style={{ color: '#6699ff' }}>Purpose:</span> {role}
-					</Typography>
-				</DetailTextWrap>
-
-				{experience ? (
-					<DetailTextWrap>
-						<Typography variant="body2" style={{ alignSelf: 'center' }}>
-							{' '}
-							Trained for {experience} years
+				<DetailRowWrap>
+					<DetailItemWrap>
+						<LocationOnIcon />
+						<Typography variant="h5">
+							<span style={{ color: '#6699ff' }}>Location:</span> {location}
 						</Typography>
-					</DetailTextWrap>
-				) : (
-					<DetailTextWrap> </DetailTextWrap>
-				)}
+					</DetailItemWrap>
+				</DetailRowWrap>
+				<DetailRowWrap>
+					<DetailItemWrap>
+						<DotWrapper></DotWrapper>{' '}
+						<Typography variant="subtitle1" style={{ alignSelf: 'center' }}>
+							{role}
+						</Typography>
+					</DetailItemWrap>
+					{experience ? (
+						<DetailItemWrap>
+							<DotWrapper></DotWrapper>
+							<Typography variant="subtitle1" style={{ alignSelf: 'center' }}>
+								{' '}
+								Trained for {experience} years
+							</Typography>
+						</DetailItemWrap>
+					) : (
+						<DetailItemWrap> </DetailItemWrap>
+					)}
+				</DetailRowWrap>
 			</DetailWrap>
 		);
 	};
@@ -88,44 +113,38 @@ const ProfileItem = ({ profile: { _id, user, status, fightexperience, experience
 		var proFight = 0;
 		totalFight = fightexperience.length;
 		proFight = fightexperience.filter(fight => fight.isPro === true).length;
-
-		if (totalFight > 1) {
-			return (
-				<DetailWrap>
-					<Typography variant="body1">
-						{' '}
-						Had {totalFight} fights
-						{proFight > 0 ? <span variant="body1"> : With {totalFight} pro fights</span> : null}
-					</Typography>
-				</DetailWrap>
-			);
-		}
+		var text;
 		if (totalFight > 0) {
-			return (
-				<DetailWrap>
-					<Typography variant="body1">
-						{' '}
-						Had {totalFight} fight
-						{proFight > 0 ? <span variant="body1"> : With {totalFight} pro fights</span> : null}
-					</Typography>
-				</DetailWrap>
-			);
+			text = `Had ${totalFight} fight`;
 		}
+		if (totalFight > 1) {
+			text = `Had ${totalFight} fights`;
+		}
+
+		return (
+			<DetailRowWrap>
+				<DetailItemWrap>
+					<DotWrapper></DotWrapper>
+					<Typography variant="subtitle1">{text}</Typography>
+				</DetailItemWrap>
+			</DetailRowWrap>
+		);
 	};
+	///the main render return
 	return (
-		<ItemWrap>
+		<ItemWrap item>
 			<CardWrapper raised={true}>
-				<CardMediaWrap component="img" image={user.avatar} />
 				<CardContentWrapper>
-					<Typography variant="h5" style={{ color: '#343a40' }}>
-						{user.name}
-					</Typography>
+					<DetailRowWrap>
+						<AvatarWrap src={user.avatar} />
+						<Typography variant="h4" style={{ color: '#343a40' }}>
+							{user.name}
+						</Typography>
+					</DetailRowWrap>
 					{DisplayDetail()}
-					{DisplayFightExperience()}
+					{fightexperience.length > 0 ? DisplayFightExperience() : null}
 				</CardContentWrapper>
-				<LinkWrapper 
-				href={"/profile/"+user._id}
-				style={{ alignSelf: 'flex-end' }} variant="body1">
+				<LinkWrapper href={'/profile/' + user._id} style={{ alignSelf: 'flex-end' }} variant="body1">
 					View Profile
 				</LinkWrapper>
 			</CardWrapper>

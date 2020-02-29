@@ -44,10 +44,12 @@ router.post(
       }
       //Get user avatar, by pass the email
       const avatar = gravatar.url(email, {
+        protocol: 'https',
         s: "200",
         r: "pg",
-        d: "mm" //default img
+        d: "denticon" //default img
       });
+    
       user = new User({
         name,
         email,

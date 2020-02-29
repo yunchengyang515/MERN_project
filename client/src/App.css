@@ -337,7 +337,7 @@
   /* Landing Page */
   .landing {
     position: relative;
-    background: url(/static/media/fighter-2.88e99383.jpg) no-repeat center center/cover;
+    background: url('../src/img/fighter-2.jpg') no-repeat center center/cover;
     height: 100vh;
     margin-top: -5px;
   }
@@ -353,8 +353,6 @@
     background:  url('../src/img/showcase.jpg')  no-repeat center center/cover;
     height: 100vh;
   }
-
-  
   .landing-inner {
     color: #fff;
     height: 80%;
