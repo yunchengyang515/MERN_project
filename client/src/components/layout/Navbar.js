@@ -1,10 +1,14 @@
 import React, { Fragment } from 'react';
 import { AppBar, Toolbar, Typography, Button, makeStyles, Hidden } from '@material-ui/core';
 import styled from 'styled-components';
+//Icons
 import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi';
 import DashboardTwoToneIcon from '@material-ui/icons/DashboardTwoTone';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import FaceIcon from '@material-ui/icons/Face';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+//react and redux
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -40,15 +44,16 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const guestLinks = (
 		<LinksWrapper>
 			<LinkButton color="inherit" href="/login">
-				
+				<PermIdentityIcon/>
 				<Typography variant="subtitle2">login</Typography>
 				
 			</LinkButton>
 			<LinkButton color="inherit" href="/register">
+				<AssignmentIcon/>
 				<Typography variant="subtitle2">Register</Typography>
 			</LinkButton>
 			<LinkButton color="inherit" href="/profiles">
-				<FaceIcon/>
+				<SupervisedUserCircleIcon/>
 				<Hidden xsDown>
 				<Typography variant="subtitle2">Profiles</Typography>
 				</Hidden>
@@ -70,7 +75,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 			</Hidden>
 			</LinkButton>
 			<LinkButton color="inherit" href="/profiles">
-				<FaceIcon/>
+				<SupervisedUserCircleIcon/>
 				<Hidden xsDown>
 				<Typography variant="subtitle2">Profiles</Typography>
 				</Hidden>

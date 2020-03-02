@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 const ComponentWrapper=styled.section`
 position: relative;
-background: black;
-height: 100vh;
+margin-top:300px;
+background:none;
 `
 export default () => (
    

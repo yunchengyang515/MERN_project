@@ -12,16 +12,14 @@ const ProfileSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	}, //such as job
-	skills: {
+	styles: {
 		type: [String],
 		required: true,
 	}, //comma separated value, array of strings
 	bio: {
 		type: String,
 	},
-	githubusername: {
-		type: String,
-	},
+	
 	fightexperience: [
 		{
 			promotion: {
@@ -47,9 +45,6 @@ const ProfileSchema = new mongoose.Schema({
 	facebook: {
 		type: String,
 	}, //an object
-	date: {
-		type: Date,
-		default: Date.now,
-	},
+	
 });
 module.exports = Profile = mongoose.model('profile', ProfileSchema);

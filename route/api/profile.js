@@ -48,6 +48,9 @@ router.post(
 		check('experience', 'experience is required')
 			.not()
 			.isEmpty(),
+		check('experience', 'experience is required')
+		.not()
+		.isEmpty(),
 		auth,
 	],
 	async (req, res) => {
@@ -60,7 +63,6 @@ router.post(
 		//build profile object
 		const profileObject = {};
 		profileObject.user = req.user.id;
-		console.log(req.user.id);
 		//user will be the user id in the request
 		//Note: to access user, auth is needed in the middleware chain
 		//the company in the profileObject is equal to the company in the request body
@@ -68,7 +70,15 @@ router.post(
 		if (req.body.role) profileObject.role = req.body.role;
 		if (req.body.experience) profileObject.experience = req.body.experience;
 		if (req.body.bio) profileObject.bio = req.body.bio;
+		if (req.body.styles) styleString= req.body.styles;
 		if (req.body.facebook) profileFields.facebook = req.body.facebook;
+		console.log(styleString)
+		//split style string
+		if (styleString !== ""){ 
+		styles = styleString.split(",")
+		profileObject.styles= styles
+		}
+		console.log(styles)
 
 		//Insert data into mongo
 		try {

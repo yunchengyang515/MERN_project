@@ -1,5 +1,5 @@
 //React import
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
 //Material ui import
@@ -7,7 +7,7 @@ import { Avatar, Grid, Typography, Button } from '@material-ui/core';
 
 //Styled components
 const ComponentWrap = styled.div`
-height:100%`;
+`;
 const CoverWrap = styled.div`
 	height: 200px;
 	width: 100%;
@@ -56,7 +56,9 @@ const NameRowWrap = styled.div`
 	margin-left: 70px;
 	align-items:center;
 	width:65%;
+	
 `;
+
 const IconWrap = styled.img`
 	height: 40px;
 	width: 40px;
@@ -73,6 +75,12 @@ const BackButton = styled(Button)`
 	color:white !important;
 	align-self:flex-end;
 `
+const BioWrap = styled.div`
+margin:auto;
+width:65%;
+padding-left:10px;`
+
+
 
 const ProfileHeader = prop => {
 	const history = useHistory();
@@ -105,12 +113,20 @@ const ProfileHeader = prop => {
 				</BackButton>
 				</BackButtonWrap>
 			</RowWrap>
+			
+			
+		
 		);
 	};
 	return (
 		<ComponentWrap>
 			{RenderCover()}
 			{RenderDetail()}
+			<BioWrap>
+			<Typography variant ="subtitle1">
+			{prop.bio}
+			</Typography>
+			</BioWrap>
 		</ComponentWrap>
 	);
 };

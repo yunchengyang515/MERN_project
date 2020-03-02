@@ -74,7 +74,6 @@ const DotWrapper = styled.span`
 `;
 //main render function
 const ProfileItem = ({ profile: { _id, user, status, fightexperience, experience, role, location } }) => {
-	console.log(user.avatar)
 	const DisplayDetail = () => {
 		return (
 			<DetailWrap>

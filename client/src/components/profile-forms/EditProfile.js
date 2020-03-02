@@ -43,7 +43,8 @@ const EditProfile = ({ createProfile, history,getCurrentProfile,profile:{profile
 		role: '',
         experience:0,
         bio:"",
-        facebook:""
+        facebook:"",
+        styles:[]
     });
 
    
@@ -61,7 +62,8 @@ const EditProfile = ({ createProfile, history,getCurrentProfile,profile:{profile
             role:loading || !profile.role ? '' : profile.role,
             experience:loading || !profile.experience ? '' : profile.experience,
             bio:loading || !profile.bio ? '' : profile.bio,
-            facebook: loading || !profile.facebook?'':profile.facebook
+            facebook: loading || !profile.facebook?'':profile.facebook,
+            styles: loading || !profile.styles?'':profile.styles
         });
       }, [loading, getCurrentProfile]);//when it loads,run useEffect
 
@@ -70,7 +72,8 @@ const EditProfile = ({ createProfile, history,getCurrentProfile,profile:{profile
         role,
         experience,
         bio,
-        facebook
+        facebook,
+        styles
     } = formData;
 
 
@@ -128,6 +131,18 @@ const EditProfile = ({ createProfile, history,getCurrentProfile,profile:{profile
                             <input
                                 type="text"
                                 placeholder=" "
+                                name="styles"
+                                onChange={e => onChange(e)}
+                                value={styles}
+                            />
+                            <small className='form-text'>
+						    Styles you trained in, separate by comma.
+					        </small>
+                         </div>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                placeholder=" "
                                 name="bio"
                                 onChange={e => onChange(e)}
                                 value={bio}
@@ -136,32 +151,7 @@ const EditProfile = ({ createProfile, history,getCurrentProfile,profile:{profile
 						    Bio
 					        </small>
                          </div>
-                        
-                <div className='my-2'>
-					<button
-						onClick={() => toggleSocialInputs(!displaySocialInputs)}
-						type='button'
-						className='btn btn-light'
-					>
-						Add Social Network Links
-					</button>
-					<span>Optional</span>
-				</div>
-				{displaySocialInputs && (
-					<Fragment>
-						<div className='form-group social-input'>
-							<i className='fab fa-facebook fa-2x' />
-							<input
-								type='text'
-								placeholder='Facebook URL'
-								name='facebook'
-								value={facebook}
-								onChange={e => onChange(e)}
-							/>
-						</div>
-                        </Fragment>
-                      
-                )}
+           
                 <input type="submit" class="btn btn-primary" value="Update Profile" />
                     </form>
                 </ContainerWrapper>
