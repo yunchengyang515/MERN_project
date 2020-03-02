@@ -57,7 +57,7 @@ const Dashboard = ({ getCurrentProfile, deleteAccount, profile: { profile, loadi
 						<LeadWrapper variant="h2">Dashboard</LeadWrapper>
 						<Typography variant="h4">Welcome {profile.user && profile.user.name}</Typography>
 						<DashboardAction />
-						{profile.fightexperience !== null && <Experience fightexperience={profile.fightexperience} />}
+						{profile.fightexperience !== null && <Experience fightexperience={profile.fightexperience} editable={true} />}
 						<Alert />
 						<DangerZoneWrapper>
 							<Typography variant="h4" style={{ color: '#e60000' }}>

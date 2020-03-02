@@ -16,6 +16,7 @@ import { getProfileById } from "../../actions/profile";
 import ProfileHeader from "../userProfile/ProfileHeader";
 import InfoSection from "../userProfile/InfoSection";
 import Spinner from "../../components/layout/Spinner";
+import Experience from "../../components/dashboard/Experience";
 
 const ComponentWrap = styled(Container)`
   width: 100%;
@@ -23,9 +24,15 @@ const ComponentWrap = styled(Container)`
   padding-bottom: 10px;
   position: relative;
   padding: 0px !important;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
+`;
+
+const ExperienceWrap = styled.div`
+  width: 73%;
+  margin-left: 220px;
+  margin-bottom: 50px;
 `;
 
 const UserProfile = ({ getProfileById, profile, auth, match }) => {
@@ -41,17 +48,21 @@ const UserProfile = ({ getProfileById, profile, auth, match }) => {
     console.log(profile.profile.user);
   }
 
-  
-    if (profile.profile) {
-      return (
-        <ComponentWrap>
-          <ProfileHeader user={profile.profile.user} bio = {profile.profile.bio} />
-		   <InfoSection profile ={profile.profile}/>
-        </ComponentWrap>
-      );
-	}
-	return <Spinner/>
-
+  if (profile.profile) {
+    return (
+      <ComponentWrap>
+        <ProfileHeader user={profile.profile.user} bio={profile.profile.bio} />
+        <InfoSection profile={profile.profile} />
+        <ExperienceWrap>
+          <Experience
+            fightexperience={profile.profile.fightexperience}
+            editable={false}
+          />
+        </ExperienceWrap>
+      </ComponentWrap>
+    );
+  }
+  return <Spinner />;
 };
 
 UserProfile.propTypes = {
