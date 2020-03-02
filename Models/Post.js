@@ -6,7 +6,7 @@ const PostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "users"
     },
-    text: {
+    description: {
         type: String,
         required: true
     },
@@ -16,12 +16,23 @@ const PostSchema = new Schema({
     avatar: {
         type: String
     },
-    likes: [{
+    going: [{
         user: {
             type: Schema.Types.ObjectId,
             ref: "users"
         }
     }],
+    location:{
+        address:{
+            type:String
+        },
+        lat:{
+            type:Number
+        },
+        long:{
+            type:Number
+        }
+    },
     comments: [{
         user: {
             type: Schema.Types.ObjectId,

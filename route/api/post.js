@@ -15,7 +15,7 @@ router.post(
 		//only status is required, skills are required
 		//check in the middleware functions
 		auth,
-		check('text', 'text is required')
+		check('description', 'Description is required')
 			.not()
 			.isEmpty(),
 	],
@@ -38,7 +38,7 @@ router.post(
 				avatar: userObject.avatar,
 				user: req.user.id,
 			});
-
+			//to do: implement geocoding with google api, then create new location object
 			const post = await newPost.save();
 			res.json(post);
 		} catch (error) {
@@ -95,69 +95,49 @@ router.delete('/:id', auth, async (req, res) => {
 	}
 });
 
-//@route PUT api/post/like/:id
-//@desc Like a post
+//@route PUT api/post/going/:id
+//@desc register as going for a post
 //@access private
-router.put('/like/:id', auth, async (req, res) => {
+router.put('/going/:id', auth, async (req, res) => {
 	try {
 		const post = await Post.findById(req.params.id);
 		//Only returns the post which has no like, and is made by the user
 		//Length > 0 means it is already been liked
-		if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
-			res.status(400).json({ msg: 'You already liked the post' });
+		if (post.going.filter(going => going.user.toString() === req.user.id).length > 0) {
+			res.status(400).json({ msg: 'You already registered as going' });
 		}
-		post.likes.unshift({ user: req.user.id });
+		post.going.unshift({ user: req.user.id });
 
 		await post.save();
-		res.json(post.likes);
+		res.json(post.going);
 	} catch (error) {
 		console.error(error.message);
 		res.status(500).send('Server Error');
 	}
 });
 
-//@route PUT api/post/unlike/:id
-//@desc unlike a post
+//@route PUT api/post/ungoing/:id
+//@desc ungoing to a training post
 //@access private
-router.put('/unlike/:id', auth, async (req, res) => {
+router.put('/ungoing/:id', auth, async (req, res) => {
 	try {
 		const post = await Post.findById(req.params.id);
 		//Only returns the post which has like, and is made by the user
 		//Length > 0 means it is already been liked
-		if (post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
-			res.status(400).json({ msg: 'You have not liked the post ' });
+		if (post.going.filter(like => like.user.toString() === req.user.id).length === 0) {
+			res.status(400).json({ msg: 'You have not rsvped' });
 		}
 		//get remove index
-		const removeIndex = post.likes.map(like => like.user.toString().indexOf(req.user.id));
-		post.likes.splice(removeIndex, 1);
+		const removeIndex = post.going.map(like => like.user.toString().indexOf(req.user.id));
+		post.going.splice(removeIndex, 1);
 		await post.save();
-		res.json(post.likes);
+		res.json(post.going);
 	} catch (error) {
 		console.error(error.message);
 		res.status(500).send('Server Error');
 	}
 });
 
-//@route PUT api/post/like/:id
-//@desc Like a post
-//@access private
-router.put('/like/:id', auth, async (req, res) => {
-	try {
-		const post = await Post.findById(req.params.id);
-		//Only returns the post which has no like, and is made by the user
-		//Length > 0 means it is already been liked
-		if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
-			res.status(400).json({ msg: 'You already liked the post' });
-		}
-		post.likes.unshift({ user: req.user.id });
-
-		await post.save();
-		res.json(post.likes);
-	} catch (error) {
-		console.error(error.message);
-		res.status(500).send('Server Error');
-	}
-});
 
 //@route POST api/post/comment/:id
 //@desc comment a post
