@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config()
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
@@ -21,7 +22,7 @@ router.post(
     check("title", "title is required")
       .not()
       .isEmpty(),
-    check("location", "location is required")
+    check("address", "address is required")
       .not()
       .isEmpty()
   ],
@@ -39,11 +40,31 @@ router.post(
       //the same thing as the findOne call you show
       userObject = User.findById(req.user.id).select("-password");
       const newPost = new Post({
-        description: req.body.text,
-        title: userObject.name,
+        description: req.body.description,
+        title: req.body.title,
         avatar: userObject.avatar,
         user: req.user.id
       });
+      const apiKey = process.env.API_KEY
+      var request = require('request');
+      //1.Sub the space in addressString to "+" sign
+      let addressString = req.body.address
+      addressString= addressString.replace(" ", "+")
+      //2. Make request to the api
+      let url =`https://maps.googleapis.com/maps/api/geocode/json?address=${addressString}&key=${apiKey}`
+      //3. Get the return
+      //Invalid address{
+      //    "results" : [],
+      //    "status" : "ZERO_RESULTS"
+      // }
+      //get geometry (lat and long), and formatted address
+      // "formatted_address" : "Wellington Rd, Clayton VIC 3800, Australia",
+      //"geometry" : {
+      //   "location" : {
+      //     "lat" : -37.9105599,
+      //     "lng" : 145.1362485
+      //  },
+
       //to do: implement geocoding with google api, then create new location object
       //response from
       //https://maps.googleapis.com/maps/api/geocode/json?address=MONASH,UNIVERSITY&key=MYKEY
@@ -111,7 +132,7 @@ router.post(
       // 	"status" : "OK"
       //  }
       const post = await newPost.save();
-      res.json(post);
+      res.json(addressString);
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Server Error");

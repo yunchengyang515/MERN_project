@@ -5,8 +5,7 @@ const initialState = {
     profile:null,
     //for the profile list: a list of profiles
     profiles:[],
-    //github repos
-    repos:[],
+
     loading: true,
     errors:{}
 }

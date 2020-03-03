@@ -23,6 +23,7 @@ flex-direction:column
 `
 const TitleWrap = styled(TextField)`
 width:45% !important
+margin-bottom:5px;
 `
 const DescriptionWrap = styled(TextField)`
 .MuiInputBase-root{
@@ -36,7 +37,7 @@ const CreatePost = () => {
   const [postData, setPostData] = useState({
     description: "",
     title: "",
-    location: ""
+    address: ""
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitAllows, setSubmitAllows] = useState(false)
@@ -59,7 +60,7 @@ const CreatePost = () => {
       if (
       postData.title.length >3 &&
       postData.description.length >3 &&
-      postData.location.length >3 &&
+      postData.address.length >3 &&
       !submitting
     ) {
       setSubmitAllows(true)
@@ -96,10 +97,10 @@ const CreatePost = () => {
         <TextField
         autoFocus
         margin="dense"
-        id="location"
-        label="Location"
+        id="address"
+        label="address"
         fullWidth
-        onChange={event => handleData(event, "location")}
+        onChange={event => handleData(event, "address")}
       />
         </FormWrap>
     )
@@ -113,7 +114,7 @@ const CreatePost = () => {
         <DialogTitle id="form-dialog-title">Create posts</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Create a training post, enter the title, description and location
+            Create a training post, enter the title, description and address
           </DialogContentText>
             {DisplayForm()}
         </DialogContent>
