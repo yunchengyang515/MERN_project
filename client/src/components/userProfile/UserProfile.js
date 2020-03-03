@@ -18,7 +18,7 @@ import InfoSection from "../userProfile/InfoSection";
 import Spinner from "../../components/layout/Spinner";
 import Experience from "../../components/dashboard/Experience";
 
-const ComponentWrap = styled(Container)`
+export const ComponentWrap = styled(Container)`
   width: 100%;
   background-color: #f8f5f5;
   padding-bottom: 10px;

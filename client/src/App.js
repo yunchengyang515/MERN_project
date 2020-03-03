@@ -11,6 +11,7 @@ import EditProfile from './components/profile-forms/EditProfile';
 import AddExperience from './components/profile-forms/AddExperience';
 import Profiles from './components/profiles/Profiles';
 import UserProfile from './components/userProfile/UserProfile';
+import PostPage from "./components/post/PostPage"
 
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -47,6 +48,7 @@ function App() {
 						<PrivateRoute exact path="/edit-profile" component={EditProfile} />
 						<PrivateRoute exact path="/add-fight-experience" component={AddExperience} />
 						<Route path="/profiles" component={Profiles} />
+						<Route path="/posts" component={PostPage} />
 						<Route path="/profile/:id" component={UserProfile} />
 						<Route path="/" render={() => <div>Page Not found </div>} />
 					</Switch>
