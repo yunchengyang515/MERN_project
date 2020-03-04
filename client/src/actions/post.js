@@ -13,7 +13,6 @@ export const createPost = (formData, history)=> async dispatch =>{
 		};
 		//update the profile with formData and config
 		const res = await axios.post('/api/post', formData, config);
-
         dispatch({
 			type: CREATE_POST,
 			payload: res.data,

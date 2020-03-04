@@ -35,7 +35,7 @@ const DescriptionWrap = styled(TextField)`
   }
 `;
 
-const CreatePost = ({ createPost, history }) => {
+const CreatePost = ({ createPost, history, post }) => {
   //use state hooks
   const [open, setOpen] = useState(false);
   const [postData, setPostData] = useState({
@@ -73,13 +73,18 @@ const CreatePost = ({ createPost, history }) => {
   };
 
   const handleSubmit = () => {
-    console.log(postData);
     setSubmitting(true);
     setSubmitAllows(false);
     createPost(postData, history);
-    setTimeout(() => setSubmitting(false), 2000);
-    //to do:
-    //check the state if no error, close the dialog
+    setTimeout(() => {
+      if(post&&post.errors==={}){
+        setSubmitting(false)
+      }
+      else{
+        handleClose()
+      }
+    }, 2000);
+   
   };
 
   const DisplayForm = () => {
@@ -145,6 +150,6 @@ const CreatePost = ({ createPost, history }) => {
   );
 };
 const mapStateToProps = state => ({
-  post: state.post
+  posts: state.post
 });
 export default connect(mapStateToProps, { createPost })(withRouter(CreatePost));

@@ -74,7 +74,7 @@ router.post(
         const post = await newPost.save();
         res.json(post)
       });
-
+      res.json(newPost)
 
     } catch (error) {
       console.error(error.message);
