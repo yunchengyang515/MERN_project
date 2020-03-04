@@ -1,8 +1,8 @@
-# MERN_project
+# FightersConnect
 FightersConnect, inspired Fighter Link and Linkedin. Aim to build a community of combat sport people. Also a project for me to gain in depth understanding of react, redux and node.js
-## Skills for All - a skill for EVERY ONE OF YOU ##
+## Flexibility and variety in finding training and sparring partners##
 
-- **Community, improve together**
+- **Fighter community, improve together**
 <br> Having a solid community is one of the most important thing in combat sport, we need to support each other to improve as a community
 
 
