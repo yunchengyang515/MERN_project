@@ -62,14 +62,15 @@ router.post(
       let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${addressString}&key=${apiKey}`;
       request(url, async function(error, response, body) {
         retData = JSON.parse(body);
-
-        if (retData.status !== "ZERO_RESULTS") {
+        
+        if (retData.status !== "ZERO_RESULTS") { // if there are results
           newPost.location.address =
             retData.results[0].formatted_address;
           let geometry =
             retData.results[0].geometry.location;
           newPost.location.geometry = geometry;
         }
+        //save the newPost
         const post = await newPost.save();
         res.json(post)
       });

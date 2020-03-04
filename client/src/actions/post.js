@@ -2,8 +2,9 @@ import axios from 'axios';
 import { setAlert } from './alert';
 import { CREATE_POST } from './types';
 
-apiKey = process.env.API_KEY;
-export const createPost = (formData, history, userId)=>{
+
+const apiKey = process.env.API_KEY;
+export const createPost = (formData, history)=> async dispatch =>{
     try {
 		const config = {
 			headers: {
