@@ -8,6 +8,7 @@ FightersConnect, inspired Fighter Link and Linkedin. Aim to build a community of
 
 ## Built With
 - [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - a lightweight, interpreted, or just-in-time compiled programming language with first-class functions.
-- [Node.js](https://https://nodejs.org/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
-- [React](http://https://reactjs.org/) - A JavaScript library for building user interfaces.
-- [Redux](http://https://https://redux.js.org/) - Redux is a predictable state container for JavaScript apps.
+- [Node.js](https://nodejs.org/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+- [React](http://reactjs.org/) - A JavaScript library for building user interfaces.
+- [Redux](http://redux.js.org/) - Redux is a predictable state container for JavaScript apps.
+- [MongoDB](http://www.mongodb.com/) - MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era. No database makes you more productive.
