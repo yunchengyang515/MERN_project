@@ -26,11 +26,13 @@ const PostSchema = new Schema({
         address:{
             type:String
         },
-        lat:{
-            type:Number
-        },
-        long:{
-            type:Number
+        geometry:{
+            lat:{
+                type:Number
+            },
+            lng:{
+                type:Number
+            }
         }
     },
     comments: [{

@@ -1,5 +1,5 @@
 const express = require("express");
-require("dotenv").config()
+require("dotenv").config();
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
@@ -35,7 +35,7 @@ router.post(
 
     //Insert data into mongo
     try {
-      const postObject = {};
+      let retData = {};
       //findById is just a convenience function that does exactly
       //the same thing as the findOne call you show
       userObject = User.findById(req.user.id).select("-password");
@@ -43,96 +43,38 @@ router.post(
         description: req.body.description,
         title: req.body.title,
         avatar: userObject.avatar,
-        user: req.user.id
+        user: req.user.id,
+        location: {
+          address: req.body.address,
+          geometry: {
+            lat:null,
+            lng:null
+          }
+        }
       });
-      const apiKey = process.env.API_KEY
-      var request = require('request');
-      //1.Sub the space in addressString to "+" sign
-      let addressString = req.body.address
-      addressString= addressString.replace(" ", "+")
-      //2. Make request to the api
-      let url =`https://maps.googleapis.com/maps/api/geocode/json?address=${addressString}&key=${apiKey}`
-      //3. Get the return
-      //Invalid address{
-      //    "results" : [],
-      //    "status" : "ZERO_RESULTS"
-      // }
-      //get geometry (lat and long), and formatted address
-      // "formatted_address" : "Wellington Rd, Clayton VIC 3800, Australia",
-      //"geometry" : {
-      //   "location" : {
-      //     "lat" : -37.9105599,
-      //     "lng" : 145.1362485
-      //  },
 
-      //to do: implement geocoding with google api, then create new location object
-      //response from
-      //https://maps.googleapis.com/maps/api/geocode/json?address=MONASH,UNIVERSITY&key=MYKEY
-      // {
-      // 	"results" : [
-      // 	   {
-      // 		  "address_components" : [
-      // 			 {
-      // 				"long_name" : "Wellington Road",
-      // 				"short_name" : "Wellington Rd",
-      // 				"types" : [ "route" ]
-      // 			 },
-      // 			 {
-      // 				"long_name" : "Clayton",
-      // 				"short_name" : "Clayton",
-      // 				"types" : [ "locality", "political" ]
-      // 			 },
-      // 			 {
-      // 				"long_name" : "Monash City",
-      // 				"short_name" : "Monash",
-      // 				"types" : [ "administrative_area_level_2", "political" ]
-      // 			 },
-      // 			 {
-      // 				"long_name" : "Victoria",
-      // 				"short_name" : "VIC",
-      // 				"types" : [ "administrative_area_level_1", "political" ]
-      // 			 },
-      // 			 {
-      // 				"long_name" : "Australia",
-      // 				"short_name" : "AU",
-      // 				"types" : [ "country", "political" ]
-      // 			 },
-      // 			 {
-      // 				"long_name" : "3800",
-      // 				"short_name" : "3800",
-      // 				"types" : [ "postal_code" ]
-      // 			 }
-      // 		  ],
-      // 		  "formatted_address" : "Wellington Rd, Clayton VIC 3800, Australia",
-      // 		  "geometry" : {
-      // 			 "location" : {
-      // 				"lat" : -37.9105599,
-      // 				"lng" : 145.1362485
-      // 			 },
-      // 			 "location_type" : "GEOMETRIC_CENTER",
-      // 			 "viewport" : {
-      // 				"northeast" : {
-      // 				   "lat" : -37.9092109197085,
-      // 				   "lng" : 145.1375974802915
-      // 				},
-      // 				"southwest" : {
-      // 				   "lat" : -37.9119088802915,
-      // 				   "lng" : 145.1348995197085
-      // 				}
-      // 			 }
-      // 		  },
-      // 		  "place_id" : "ChIJuXNG9stq1moRBHFYmhabrw8",
-      // 		  "plus_code" : {
-      // 			 "compound_code" : "34QP+QF Clayton, Victoria, Australia",
-      // 			 "global_code" : "4RJ734QP+QF"
-      // 		  },
-      // 		  "types" : [ "establishment", "point_of_interest", "university" ]
-      // 	   }
-      // 	],
-      // 	"status" : "OK"
-      //  }
-      const post = await newPost.save();
-      res.json(addressString);
+      const apiKey = process.env.API_KEY;
+      var request = require("request");
+      //1.Sub the space in addressString to "+" sign
+      let addressString = req.body.address;
+      addressString = addressString.replace(" ", "+");
+      //2. Make request to the api
+      let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${addressString}&key=${apiKey}`;
+      request(url, async function(error, response, body) {
+        retData = JSON.parse(body);
+
+        if (retData.status !== "ZERO_RESULTS") {
+          newPost.location.address =
+            retData.results[0].formatted_address;
+          let geometry =
+            retData.results[0].geometry.location;
+          newPost.location.geometry = geometry;
+        }
+        const post = await newPost.save();
+        res.json(post)
+      });
+
+
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Server Error");
@@ -154,6 +96,7 @@ router.get("/", auth, async (req, res) => {
     console.error(error.message);
     res.status(500).send("Server Error");
   }
+  
 });
 
 //@route GET api/post/:id
