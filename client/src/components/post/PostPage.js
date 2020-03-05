@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getAllPosts } from "../../actions/post";
 //Material ui imports
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 
 //Other components imports
 import CreatedPost from "./CreatePost";
@@ -18,9 +18,15 @@ export const ComponentWrap = styled(Container)`
   padding-bottom: 10px;
   position: relative;
   padding: 0px !important;
-  height: 100vh;
+  min-height:100vh;
   display: flex;
   flex-direction: column;
+`;
+const ItemsWrap = styled(Grid)`
+  width: 80%;
+  margin:auto;
+  margin-left:5%;
+  margin-top: 20px;
 `;
 
 const PostPage = ({ getAllPosts, posts }) => {
@@ -29,16 +35,17 @@ const PostPage = ({ getAllPosts, posts }) => {
     getAllPosts();
   }, [getAllPosts]);
 
-  const [newPostAdded, setNewPostAdded] = useState(false)
-
+  const [newPostAdded, setNewPostAdded] = useState(false);
 
   return (
     <div>
       <ComponentWrap>
         <CreatedPost />
-        {posts.map(post => {
-          return <PostItem post={post} />;
-        })}
+        <ItemsWrap container>
+          {posts.slice(0, 6).map(post => {
+            return <PostItem post={post} key={post._id}/>;
+          })}
+        </ItemsWrap>
       </ComponentWrap>
     </div>
   );
