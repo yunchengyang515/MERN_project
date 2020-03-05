@@ -35,7 +35,7 @@ const DescriptionWrap = styled(TextField)`
   }
 `;
 
-const CreatePost = ({ createPost, history, post }) => {
+const CreatePost = ({ createPost, history, post,user }) => {
   //use state hooks
   const [open, setOpen] = useState(false);
   const [postData, setPostData] = useState({
@@ -82,6 +82,8 @@ const CreatePost = ({ createPost, history, post }) => {
       }
       else{
         handleClose()
+      window.location.reload();
+
       }
     }, 2000);
    
@@ -112,7 +114,7 @@ const CreatePost = ({ createPost, history, post }) => {
           autoFocus
           margin="dense"
           id="address"
-          label="address"
+          label="Enter the address of the training, including the state"
           fullWidth
           onChange={event => handleData(event, "address")}
         />
@@ -122,7 +124,7 @@ const CreatePost = ({ createPost, history, post }) => {
   return (
     <div>
       <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
-        Open form dialog
+        Create A New Post
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle id="form-dialog-title">Create posts</DialogTitle>
@@ -150,6 +152,8 @@ const CreatePost = ({ createPost, history, post }) => {
   );
 };
 const mapStateToProps = state => ({
-  posts: state.post
+  posts: state.post,
+  user:state.auth.user,
+  loading:state.loading
 });
 export default connect(mapStateToProps, { createPost })(withRouter(CreatePost));

@@ -85,7 +85,6 @@ router.post(
 			//find profile by the user, use findOne()
 			let profile = await Profile.findOne({ user: req.user.id });
 			//If the profile is found, update use findOneAndUpdate()
-			console.log(req.user.id);
 			if (profile) {
 				profile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileObject }, { new: true });
 				//update need to be pass user-> user id, $set -> profile object, new -> boolean

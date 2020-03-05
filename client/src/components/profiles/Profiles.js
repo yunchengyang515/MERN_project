@@ -6,6 +6,7 @@ import ProfileItem from"./ProfileItem";
 import Gallery from './Gallery';
 import styled from "styled-components";
 import { Container, Grid } from "@material-ui/core"
+
 const ComponentWrap = styled(Container)`
 max-width: 80vw;
 background-color: #F8F5F5;

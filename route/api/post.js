@@ -1,3 +1,4 @@
+var ObjectId = require('mongodb').ObjectID;
 const express = require("express");
 require("dotenv").config();
 const router = express.Router();
@@ -38,11 +39,12 @@ router.post(
       let retData = {};
       //findById is just a convenience function that does exactly
       //the same thing as the findOne call you show
-      userObject = User.findById(req.user.id).select("-password");
+      const user = await User.findById(req.user.id).select('-password');
       const newPost = new Post({
         description: req.body.description,
         title: req.body.title,
-        avatar: userObject.avatar,
+        avatar: user.avatar,
+        name: user.name,
         user: req.user.id,
         location: {
           address: req.body.address,
@@ -74,7 +76,7 @@ router.post(
         const post = await newPost.save();
         res.json(post)
       });
-      res.json(newPost)
+      // res.json(newPost)
 
     } catch (error) {
       console.error(error.message);

@@ -1,4 +1,4 @@
-import { CREATE_POST } from "../actions/types";
+import { CREATE_POST, GET_ALL_POSTS } from "../actions/types";
 const initialState = {
   //hold all the profile data
   posts: [],
@@ -17,6 +17,12 @@ export default function(state = initialState, action) {
         post: payload,
         loading: false
       };
+      case GET_ALL_POSTS:
+        return {
+          ...state,
+          posts: payload,
+          loading: false
+        };
     default:
       return state;
   }

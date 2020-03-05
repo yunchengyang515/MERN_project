@@ -16,6 +16,9 @@ const PostSchema = new Schema({
     avatar: {
         type: String
     },
+    name:{
+        type:String
+    },
     going: [{
         user: {
             type: Schema.Types.ObjectId,
