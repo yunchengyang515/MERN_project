@@ -1,4 +1,4 @@
-import { CREATE_POST, GET_ALL_POSTS } from "../actions/types";
+import { CREATE_POST, GET_ALL_POSTS, POST_COMMENT } from "../actions/types";
 const initialState = {
   //hold all the profile data
   posts: [],
@@ -12,6 +12,7 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case CREATE_POST:
+    case POST_COMMENT:
       return {
         ...state,
         post: payload,

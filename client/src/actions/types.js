@@ -15,3 +15,4 @@ export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const ACCOUNT_DELETED = "ACCOUNT_DELETED";
 export const CREATE_POST = "CREATE_POST";
 export const GET_ALL_POSTS = "GET_ALL_POSTS";
+export const POST_COMMENT = "POST_COMMENT";
