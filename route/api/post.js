@@ -197,7 +197,6 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select("-password");
       const post = await Post.findById(req.params.id);
-
       //Construct a new comment
       newDate = Date.now();
       const newComment = {

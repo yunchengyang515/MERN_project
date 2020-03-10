@@ -102,23 +102,23 @@ const PostItem = ({ post }) => {
       </div>
     );
   };
-  const DisplayComments = () =>{
+  const DisplayComments = (post) =>{
     return(
     <Dialog open={commentsOpen} onClose={handleCommentsClose}>
-      <Comments comments={post.comments}/>
+      <Comments comments={post.comments} id={post._id}/>
     </Dialog>
     )
   }
 
-  const DisplayViewComments = ( comments ) =>{
+  const DisplayViewComments = ( post ) =>{
 
-    if (comments.length > 0){
+    if (post.comments.length > 0){
       return(
         <Fragment>
         <Button size="small" color="primary" onClick={handleCommentsClickOpen}>
             View comments
           </Button>
-          {DisplayComments()}
+          {DisplayComments(post)}
         </Fragment>
       )
     }
@@ -148,7 +148,7 @@ const PostItem = ({ post }) => {
             View Map Location
           </Button>
           {DisplayMap()}
-          {DisplayViewComments(post.comments)}
+          {DisplayViewComments(post)}
         </CardActions>
       </CardWrap>
     </ItemWrap>

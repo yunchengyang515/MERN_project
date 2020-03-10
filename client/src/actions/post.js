@@ -3,7 +3,6 @@ import { setAlert } from './alert';
 import { CREATE_POST, GET_ALL_POSTS, POST_COMMENT } from './types';
 
 
-const apiKey = process.env.API_KEY;
 export const createPost = (formData, history, user)=> async dispatch =>{
     try {
 		const config = {
@@ -68,8 +67,8 @@ export const postComment = (commentData, id) => async dispatch =>{
 			},
 		};
 		//update the profile with formData and config
-		const res = await axios.post(`/api/post/comment/:${id}`, commentData, config);
-
+		const res = await axios.post(`/api/post/comment/${id}`, commentData, config);
+		console.log(res.data)
         dispatch({
 			type: POST_COMMENT,
 			payload: res.data,
