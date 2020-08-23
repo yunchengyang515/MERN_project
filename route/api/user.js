@@ -8,6 +8,20 @@ const { check, validationResult } = require("express-validator");
 
 const User = require("../../Models/User"); //The user model
 
+//@route GET api/user
+//@desc register user
+//@access Public
+//with auth, the route is protected with the token
+router.get("/", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password"); //return everything expect password
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 //@route POST api/user
 //@desc Register user
 //@access Public

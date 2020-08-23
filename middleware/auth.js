@@ -6,7 +6,8 @@ module.exports = function(req,res,next){
     if(!token){
         return res.status(401).json({msg:"Not authorized"}); //Deny message if no token
     }
-    try { //if the token is valid, decode the token and send to the user
+    try { //if the token is valid, decode the token and send to the api
+        //by embedding the user in request
         const decoded = jwt.verify(token, config.get("token"));
         req.user = decoded.user;
         next();
